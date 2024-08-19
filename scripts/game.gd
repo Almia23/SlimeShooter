@@ -1,0 +1,19 @@
+extends Node2D
+const MOB = preload("res://scenes/mob.tscn")
+
+
+
+func spawn_mob():
+	var new_mob = MOB.instantiate()
+	%PathFollow2D.progress_ratio = randf()
+	new_mob.global_position = %PathFollow2D.global_position
+	add_child(new_mob)
+
+
+func _on_enemy_spawn_timeout():
+	spawn_mob()
+
+
+func _on_player_health_depleted():
+	%GameOver.visible = true
+	get_tree().paused = true
